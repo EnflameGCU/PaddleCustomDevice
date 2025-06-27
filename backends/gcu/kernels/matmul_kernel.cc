@@ -159,6 +159,7 @@ PD_REGISTER_PLUGIN_KERNEL(matmul,
                           ALL_LAYOUT,
                           custom_kernel::MatmulKernel,
                           float,
+                          phi::dtype::bfloat16,
                           phi::dtype::float16) {}
 
 // PD_REGISTER_PLUGIN_KERNEL(matmul_grad,

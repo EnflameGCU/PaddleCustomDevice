@@ -591,6 +591,7 @@ PD_REGISTER_PLUGIN_KERNEL(add,
                           int64_t,
                           float,
                           double,
+                          phi::dtype::bfloat16,
                           phi::dtype::float16) {}
 
 // PD_REGISTER_PLUGIN_KERNEL(add_grad,
