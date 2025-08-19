@@ -277,9 +277,19 @@ void SumKernel(const Context& dev_ctx,
         }
       }
     }
-    phi::DenseTensor input_x = MaybeCreateOrTrans64To32bits(dev_ctx, x);
-    phi::DenseTensor output =
-        MaybeCreateOrTrans64To32bits(dev_ctx, *out, false);
+
+    phi::DenseTensor input_x;
+    phi::DenseTensor output;
+    if (x.dtype() == phi::DataType::BOOL) {
+      custom_kernel::Cast(dev_ctx, x, phi::DataType::INT32, &input_x);
+      auto meta = out->meta();
+      meta.dtype = phi::DataType::INT32;
+      output = custom_kernel::TensorEmpty(dev_ctx, meta);
+    } else {
+      input_x = MaybeCreateOrTrans64To32bits(dev_ctx, x);
+      output = MaybeCreateOrTrans64To32bits(dev_ctx, *out, false);
+    }
+
     LAUNCH_TOPSATENOP(topsatenSum,
                       dev_ctx,
                       output,
@@ -519,6 +529,7 @@ PD_REGISTER_PLUGIN_KERNEL(sum,
                           custom_kernel::SumKernel,
                           int32_t,
                           int64_t,
+                          bool,
                           float,
                           double,
                           phi::dtype::bfloat16,

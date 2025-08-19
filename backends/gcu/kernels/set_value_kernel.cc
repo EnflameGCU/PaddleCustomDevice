@@ -257,7 +257,8 @@ void SetValueKernel(const Context& dev_ctx,
 //                           double,
 //                           int,
 //                           int64_t,
-//                           bool) {}
+//                           phi::dtype::bfloat16,
+//                           phi::dtype::float16) {}
 
 // PD_REGISTER_PLUGIN_KERNEL(set_value_with_tensor,
 //                           gcu,
@@ -267,4 +268,5 @@ void SetValueKernel(const Context& dev_ctx,
 //                           double,
 //                           int,
 //                           int64_t,
-//                           bool) {}
+//                           phi::dtype::bfloat16,
+//                           phi::dtype::float16) {}
